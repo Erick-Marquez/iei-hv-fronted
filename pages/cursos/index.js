@@ -14,16 +14,15 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 
 
-    //AXIOS//---------
+//AXIOS//---------
+axios.defaults.withCredentials = true
 
-
-axios.defaults.withcredentials = true
 const Cursos = () => {
     const [ cursos, setCursos ] = useState([])
     const nombre = useRef('')
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/api/v1/courses")
+        axios.get("http://localhost:8000/api/v1/courses")
         .then((res) => {
             console.log(res);
             setCursos(res.data.data)
@@ -37,16 +36,17 @@ const Cursos = () => {
             <Button label="Guardar" icon="pi pi-check" onClick={() => guardarCurso()} autoFocus style={{backgroundColor: "#2B3467"}}/>
         </div>
     );
-//VALIDAR DORMULARIO
+    //VALIDAR DORMULARIO
 
     function guardarCurso() {
         console.log(nombre.current.value)
         const dataCurso = {
             name: nombre.current.value
         }
-        axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie")
+        axios.get("http://localhost:8000/sanctum/csrf-cookie")
         .then(() => {
-            axios.post("http://127.0.0.1:8000/api/v1/courses", dataCurso)
+
+            axios.post("http://localhost:8000/api/v1/courses", dataCurso)
             .then((res) => {
                 console.log(res);
             })

@@ -36,6 +36,15 @@ const Cursos = () => {
             <Button label="Guardar" icon="pi pi-check" onClick={() => guardarCurso()} autoFocus style={{backgroundColor: "#2B3467"}}/>
         </div>
     );
+
+    const actionBodyTemplate = (rowData) => {
+        return (
+            <>
+                <Button icon="pi pi-pencil" severity="primary" rounded className="mr-4" onClick={() => console.log(rowData)} />
+                <Button icon="pi pi-trash" severity="danger" rounded onClick={() => console.log(rowData)} />
+            </>
+        );
+    };
     //VALIDAR DORMULARIO
 
     function guardarCurso() {
@@ -59,24 +68,24 @@ const Cursos = () => {
 
     return (
         <div className="grid">
-            {cursos.length}
-            <Button label="Añadir Curso" icon="pi pi-plus" onClick={() => setVisible(true)} />
             <Dialog header="Añadir Curso" visible={visible} style={{ width: '80vw', maxWidth: '500px' }} onHide={() => setVisible(false)} footer={footerContent}>
-            <div className="p-fluid">
-                <div className="field">
-                    <label htmlFor="name1">Nombre</label>
-                    <InputText ref={nombre} id="name1" type="text" className="p-inputtext-lg"/>
+                <div className="p-fluid">
+                    <div className="field">
+                        <label htmlFor="name1">Nombre</label>
+                        <InputText ref={nombre} id="name1" type="text" className="p-inputtext-lg"/>
+                    </div>
                 </div>
-            </div>
             </Dialog>
 
             <div className="col-12">
                 <div className="card">
+                    <Button label="Añadir Curso" icon="pi pi-plus" onClick={() => setVisible(true)} />
                     <h5>Cursos</h5>
-                    <DataTable value={cursos} rows={5} paginator responsiveLayout="scroll">
+                    <DataTable value={cursos} rows={10} paginator rowsPerPageOptions={[5, 10, 25, 50]} removableSort responsiveLayout="scroll">
                         {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`} alt={data.image} width="50" />} /> */}
                         <Column field="id" header="Id" sortable style={{ width: '35%' }} />
                         <Column field="name" header="Nombre" sortable style={{ width: '35%' }} />
+                        <Column header="Acciones" body={actionBodyTemplate} style={{ width: '35%' }} />
                     </DataTable>
                 </div>
             </div>

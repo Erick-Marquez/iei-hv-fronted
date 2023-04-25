@@ -26,8 +26,7 @@ const Cursos = () => {
 
     const nombreAdd = useRef('')
     const nombreEdit = useRef('')
-    const toast = useRef(null);
-    const toastBC = useRef(null); //para las notificaciones
+    const toast = useRef(null); //para las notificaciones
 
     useEffect(() => {
         getCursos()
@@ -63,47 +62,17 @@ const Cursos = () => {
                     name: rowData.name
                   })
                 }} />
-                <Button icon="pi pi-trash" severity="danger" rounded onClick={() => eliminar(rowData)} />
+                <Button icon="pi pi-trash" severity="danger" rounded onClick={() => console.log(rowData)} />
             </>
         );
     };
 
     //ELIMINAR CURSO
 
-    const eliminar = (rowData) => {
-        toastBC.current.show({
-            severity: 'info',
-            sticky: true,
-            className: 'border-none',
-            content: (
-                <div className="flex flex-column align-items-center" style={{ flex: '1' }}>
-                    <div className="text-center">
-                        <i className="pi pi-exclamation-triangle" style={{ fontSize: '3rem' }}></i>
-                        <div className="font-bold text-xl my-3">¿Estas seguro?</div>
-                    </div>
-                    <div className="flex gap-2">
-                        <Button onClick={(e) => clear(true, rowData)} type="button" label="Confirm" className="p-button-success w-6rem" />
-                        <Button onClick={(e) => clear(false, rowData)} type="button" label="Cancel" className="p-button-warning w-6rem" />
-                    </div>
-                </div>
-            )
-        });
+    const eliminar = () => {
+        toast.current.show({ severity: 'warn', summary: 'Eliminar', detail: 'You have rejected', life: 3000 });
+        
     }
-
-    const clear = (submit, rowData) => {
-        toastBC.current.clear();
-        if (submit) {
-
-            BaseUrl.delete(`api/v1/courses/${rowData.id}`)
-            .then((res) => {
-                toast.current.show({ severity: 'success', summary: 'Eliminado', detail: 'Se elimino el curso' });
-                getCursos()
-            })
-            .catch((err) => {
-                toast.current.show({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el curso' });
-            })
-        }
-    };
 
     
     const confirm2 = () => {
@@ -179,7 +148,6 @@ const Cursos = () => {
     //TABLA
         <div className="grid">
             <Toast ref={toast} />
-            <Toast ref={toastBC} position="center" />
 
             <Dialog header="Añadir Curso" visible={visibleAdd} style={{ width: '80vw', maxWidth: '500px' }} onHide={() => setVisibleAdd(false)} footer={footerAdd}>
                 <div className="p-fluid">
@@ -210,9 +178,11 @@ const Cursos = () => {
                     <h5>Cursos</h5>
                     <DataTable value={cursos} rows={10} paginator rowsPerPageOptions={[5, 10, 25, 50]} removableSort responsiveLayout="scroll">
                         {/* <Column header="Image" body={(data) => <img className="shadow-2" src={`/demo/images/product/${data.image}`} alt={data.image} width="50" />} /> */}
-                        <Column field="id" header="Id" sortable style={{ width: '35%' }} />
-                        <Column field="name" header="Nombre" sortable style={{ width: '35%' }} />
-                        <Column header="Acciones" body={actionBodyTemplate} style={{ width: '35%' }} />
+                        <Column field="id" header="Id" sortable style={{ width: '22%' }} />
+                        <Column field="name" header="Nombre" sortable style={{ width: '22%' }} />
+                        <Column field="name" header="Cursos" sortable style={{ width: '22%' }} />
+                        <Column field="name" header="Grado" sortable style={{ width: '22%' }} />
+                        <Column header="Acciones" body={actionBodyTemplate} style={{ width: '22%' }} />
                     </DataTable>
                 </div>
             </div>

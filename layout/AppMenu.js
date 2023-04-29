@@ -16,7 +16,7 @@ const AppMenu = () => {
                 { label: 'Docentes', icon: 'pi pi-briefcase', to: '/docentes'},
                 { label: 'Alumnos', icon:'pi pi-user-edit', to: '/alumnos' },
                 { label: 'Cursos', icon: 'pi pi-fw pi-book', to: '/cursos'},
-                { label: 'Grados', icon: 'pi pi-building', to: '/grade'},
+                { label: 'Grados', icon: 'pi pi-building', to: '/grados'},
 
             ]
         },

@@ -1,11 +1,6 @@
-import { Chart } from 'primereact/chart';
 import { Column } from 'primereact/column';
 import { DataTable } from 'primereact/datatable';
-import { Menu } from 'primereact/menu';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { ProductService } from '../../demo/service/ProductService';
-import { LayoutContext } from '../../layout/context/layoutcontext';
-import Link from 'next/link';
 
 
 import { Button } from 'primereact/button';
@@ -14,7 +9,6 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import BaseUrl from '../../fetch/BaseUrl';
-import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 
 
 //AXIOS//---------
@@ -25,7 +19,7 @@ const Cursos = () => {
     const [ edit, setEdit ] = useState([])
 
     const nombreAdd = useRef('')
-    const nombreEdit = useRef('')
+
     const toast = useRef(null);
     const toastBC = useRef(null); //para las notificaciones
 
@@ -105,17 +99,6 @@ const Cursos = () => {
         }
     };
 
-    
-    const confirm2 = () => {
-        confirmDialog({
-            message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
-            icon: 'pi pi-info-circle',
-            acceptClassName: 'p-button-danger',
-            // accept,
-            eliminar
-        });
-    };
 
     //GET CURSO - AXIOS
     function getCursos() {

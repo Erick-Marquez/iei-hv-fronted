@@ -10,8 +10,9 @@ import BaseUrl from '../../fetch/BaseUrl';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import SectionTable from '../../components/grados/SectionTable';
+import GradeRepository from '../../repositories/GradeRepository';
 
-
+const gradeRepository = new GradeRepository()
 const Grade = () => {
     const [ grades, setGrades ] = useState([])
 
@@ -62,12 +63,9 @@ const Grade = () => {
 
 
     //GET GRADOS - AXIOS
-    function getGrades() {
-        BaseUrl.get("api/v1/grades?filter[educational_level]=Secundaria&included=sections")
-        .then((res) => {
-            console.log(res);
-            setGrades(res.data.data)
-        })
+    async function getGrades() {
+        let {data} = await gradeRepository.getGrades()
+        setGrades(data)
     }
       
     return (

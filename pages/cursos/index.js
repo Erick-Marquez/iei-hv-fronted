@@ -12,7 +12,7 @@ import BaseUrl from '../../fetch/BaseUrl';
 
 
 //AXIOS//---------
-axios.defaults.withCredentials = true
+
 
 const Cursos = () => {
     const [ cursos, setCursos ] = useState([])
